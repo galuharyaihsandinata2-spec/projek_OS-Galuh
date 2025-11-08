@@ -1,2 +1,4 @@
 # projek_OS-Galuh
-project_based_learning_perintah_dasar_linux
+project_based_learning_perintah_dasar_linux (latihan 1)
+
+# TUGAS PROYEK : LANGKAH IMPLEMENTASI
