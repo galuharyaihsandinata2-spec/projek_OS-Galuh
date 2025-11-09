@@ -145,7 +145,36 @@ Setelah memindahkan file sesuai jenisnya, perintah ls digunakan untuk menampilka
 - Perintah:  
 ```  
   nano project_os_auto.sh
-  ```
+  
+Dengan isi script :
+#!/bin/bash
+# Script Otomatis Proyek Sistem Manajemen File
+
+echo "=== Membuat Struktur Folder ==="
+mkdir -p ~/project_os/{documents,images,archives,logs}
+
+echo "=== Membuat File Sample ==="
+cd ~/project_os
+touch documents/doc{1..5}.txt images/img{1..5}.jpg archives/arc{1..5}.zip logs/log{1..5}.txt
+
+echo "=== Mengisi File ==="
+echo "File dokumen 1" > documents/doc1.txt
+echo "File log 1" > logs/log1.txt
+
+echo "=== Mengorganisir File ==="
+find . -name "*.txt" -exec mv {} documents/ \;
+find . -name "*.jpg" -exec mv {} images/ \;
+find . -name "*.zip" -exec mv {} archives/ \;
+
+echo "=== Membuat Laporan ==="
+ls -lhR > report.txt
+echo "Jumlah file:" >> report.txt
+find . -type f | wc -l >> report.txt
+echo "Ukuran total:" >> report.txt
+du -sh >> report.txt
+
+echo "=== Proyek Selesai! ==="
+```
 - Penjelasan: 
   Membuka editor teks nano untuk membuat atau mengedit file script bernama project_os_auto.sh.
 
@@ -210,12 +239,46 @@ Gambar : https://drive.google.com/file/d/1GNAaADfanIQ6iMeH0IGLsCeUd71TDgF8/view?
 5. Membuka dan Mengedit File search_files.sh
 
 - Perintah:  
-    ```
+ ```
   nano search_files.sh
-    ```
+    
+  Dengan isi script:
+        
+     #!/bin/bash
+# Script: search_files.sh
+# Fungsi: Mencari file berdasarkan nama, ukuran, atau konten
+ 
+cd ~/project_file_management
+
+echo "=== PENCARIAN FILE ==="
+echo "1. Cari berdasarkan nama"
+echo "2. Cari berdasarkan ukuran"
+echo "3. Cari berdasarkan isi konten"
+read -p "Pilih opsi (1/2/3): " opsi
+
+case $opsi in
+  1)
+    read -p "Masukkan nama atau pola file (contoh: *.txt): " nama
+    echo "Hasil pencarian:"
+    find . -type f -name "$nama"
+    ;;
+  2)
+    read -p "Masukkan batas ukuran (contoh: +1M untuk lebih dari 1MB, -500k untuk kurang dari 500KB): " ukuran
+    echo "Hasil pencarian:"
+    find . -type f -size "$ukuran"
+    ;;
+  3)
+    read -p "Masukkan kata kunci yang ingin dicari dalam file: " keyword
+    echo "Hasil pencarian:"
+    grep -r "$keyword" .
+    ;;
+  *)
+    echo "Opsi tidak valid."
+    ;;
+esac
 - Penjelasan:  
   Membuka editor teks nano untuk membuat atau mengedit file skrip bernama search_files.sh.
-
+ ```
 6. Memberi Hak Eksekusi pada File search_files.sh
 
 - Perintah:  
@@ -407,7 +470,40 @@ Gambar : https://drive.google.com/file/d/1ULUeOwt-LPaOKy_vFqPy7pejcvz_gMno/view?
 - Perintah membuat/mengedit file:  
   ```
   nano generate_report.sh
+
+  Dengan isi script:
+  #!/bin/bash
+ ```
+# Script: generate_report.sh
+# Fungsi: Membuat laporan statistik file sistem
   
+cd ~/project_file_management
+
+echo "=== LAPORAN FILE SISTEM ===" > report.txt
+echo "Tanggal: $(date)" >> report.txt
+echo "" >> report.txt
+
+echo "--- Jumlah File dan Folder ---" >> report.txt
+ls -lR | wc -l >> report.txt
+echo "" >> report.txt
+
+echo "--- Ukuran Total Folder ---" >> report.txt
+du -sh . >> report.txt
+echo "" >> report.txt
+
+echo "--- Daftar 10 File Terbesar ---" >> report.txt
+find . -type f -exec du -h {} + | sort -rh | head -10 >> report.txt
+echo "" >> report.txt
+
+echo "--- Statistik Berdasarkan Ekstensi ---" >> report.txt
+echo "TXT: $(find . -type f -name '*.txt' | wc -l)" >> report.txt
+echo "JPG: $(find . -type f -name '*.jpg' | wc -l)" >> report.txt
+echo "PDF: $(find . -type f -name '*.pdf' | wc -l)" >> report.txt
+echo "LOG: $(find . -type f -name '*.log' | wc -l)" >> report.txt
+
+echo "" >> report.txt
+echo "=== Selesai! Laporan disimpan di report.txt ==="
+  ```
 - Memberikan izin eksekusi pada file:  
   ```
   chmod +x generate_report.sh
