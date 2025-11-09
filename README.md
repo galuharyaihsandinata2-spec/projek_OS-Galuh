@@ -34,7 +34,6 @@ Untuk ls -R adalah menampilkan daftar isi direktori secara rekursif, artinya men
 
 Gambar : https://drive.google.com/file/d/1osCl8pzgyrSFb3hvxz75d8B5-Vi74mDZ/view?usp=sharing
 
-
 1. Direktori yang Ada:
 ```
 - ./documents
